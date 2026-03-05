@@ -45,7 +45,7 @@
       --card-bg: rgba(255, 255, 255, 0.05);
       --card-border: rgba(255, 255, 255, 0.08);
       --btn-bg: rgba(255, 255, 255, 0.06);
-      --btn-border: rgba(255, 255, 255, 0.10);
+      --btn-border: rgba(255, 255, 255, 0.22);
       --btn-hover: rgba(255, 255, 255, 0.10);
     }
 
@@ -313,7 +313,7 @@
     .link-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       width: 100%;
       padding: 15px 20px;
       border-radius: 12px;
@@ -325,6 +325,21 @@
       position: relative;
     }
 
+    .sparkle {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .link-btn--primary .sparkle {
+      opacity: 0.7;
+    }
+
+    .link-btn:hover .sparkle {
+      opacity: 0.9;
+    }
+
     .link-btn:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 2px;
@@ -332,17 +347,26 @@
 
     /* Primary CTA */
     .link-btn--primary {
-      background: linear-gradient(135deg, var(--orange), var(--gold));
+      justify-content: center;
+      background: linear-gradient(135deg, #9B6FCB, #C97AB5, #E8833A);
+      background-size: 200% 200%;
+      animation: gradient-shift 6s ease infinite;
       color: #fff;
       font-size: 16px;
       font-weight: 700;
       padding: 17px 20px;
-      box-shadow: 0 4px 20px rgba(232, 131, 58, 0.25);
+      box-shadow: 0 4px 20px rgba(155, 111, 203, 0.3);
       letter-spacing: 0.3px;
     }
 
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .link-btn--primary:hover {
-      box-shadow: 0 6px 28px rgba(232, 131, 58, 0.35);
+      box-shadow: 0 6px 28px rgba(155, 111, 203, 0.4);
       transform: scale(1.02);
     }
 
@@ -380,22 +404,24 @@
     .link-btn--secondary:hover {
       background: var(--btn-hover);
       transform: scale(1.02);
-      border-color: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.32);
     }
 
     /* Reviews link (slightly different treatment) */
     .link-btn--reviews {
+      justify-content: center;
+      gap: 8px;
       background: transparent;
       color: var(--cream);
       opacity: 0.8;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       font-size: 14px;
     }
 
     .link-btn--reviews:hover {
       opacity: 1;
       background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.32);
     }
 
     .link-btn--reviews svg {
@@ -468,8 +494,8 @@
     }
 
     .footer__logo {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
       opacity: 1;
     }
 
@@ -588,7 +614,9 @@
           target="_blank"
           rel="noopener noreferrer"
         >
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Sports Backdrops
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -597,7 +625,9 @@
           target="_blank"
           rel="noopener noreferrer"
         >
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Maternity Backdrops
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -606,7 +636,9 @@
           target="_blank"
           rel="noopener noreferrer"
         >
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Floral Backdrops
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -615,7 +647,9 @@
           target="_blank"
           rel="noopener noreferrer"
         >
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Zoom Backgrounds
+          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
       </nav>
@@ -624,7 +658,7 @@
 
       <nav aria-label="Reviews and social links">
         <a
-          href="https://illuminabackdrops.etsy.com/#reviews?utm_source=linkinbio&utm_medium=social&utm_campaign=reviews"
+          href="http://illuminabackdrops.etsy.com/?etsrc=sdt&utm_source=linkinbio&utm_medium=social&utm_campaign=reviews#reviews"
           class="link-btn link-btn--reviews"
           target="_blank"
           rel="noopener noreferrer"
@@ -659,8 +693,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <img src="assets/logo.png" alt="" class="footer__logo" width="36" height="36" aria-hidden="true">
-      <span class="footer__text">links.illuminabackdrops.com</span>
+      <img src="assets/logo.png" alt="" class="footer__logo" width="48" height="48" aria-hidden="true">
     </footer>
 
   </div>
