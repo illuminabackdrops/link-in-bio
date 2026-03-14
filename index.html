@@ -16,10 +16,10 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Fonts -->
+  <!-- Fonts: Inter (body) + Instrument Serif (display) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     @font-face {
@@ -36,23 +36,43 @@
     }
 
     :root {
-      --gold: #C5943A;
-      --gold-glow: rgba(197, 148, 58, 0.15);
-      --cream: #F5F0E8;
-      --orange: #E8833A;
-      --purple: #9B7FCB;
-      --dark: #0D0D0D;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --btn-bg: rgba(255, 255, 255, 0.06);
-      --btn-border: rgba(255, 255, 255, 0.22);
-      --btn-hover: rgba(255, 255, 255, 0.10);
+      /* Website design system tokens */
+      --color-bg: #080706;
+      --color-surface: #0E0D0B;
+      --color-surface-hover: #1A1816;
+      --color-text-primary: #F5F0E8;
+      --color-text-secondary: #A8A09A;
+      --color-text-tertiary: #706B65;
+      --color-text-inverse: #0C0A09;
+      --color-gold: #C8A55C;
+      --color-gold-light: #D4B76E;
+      --color-gold-dim: #9E834A;
+      --color-gold-subtle: rgba(200, 165, 92, 0.08);
+      --color-gold-glow: rgba(200, 165, 92, 0.15);
+      --color-border: rgba(245, 240, 232, 0.08);
+      --color-border-hover: rgba(245, 240, 232, 0.15);
+      --gradient-accent: linear-gradient(135deg, #B06AB3, #E87461, #F5A623);
+
+      /* Radii */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+
+      /* Shadows — gold-tinted */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(200, 165, 92, 0.03);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(200, 165, 92, 0.04);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(200, 165, 92, 0.06);
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --duration-fast: 150ms;
+      --duration-normal: 300ms;
     }
 
     html {
-      background: var(--dark);
-      color: var(--cream);
-      font-family: 'Montserrat', system-ui, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: 'Inter', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -62,9 +82,10 @@
       min-height: 100dvh;
       position: relative;
       overflow-x: hidden;
+      line-height: 1.65;
     }
 
-    /* ---- Atmospheric Background ---- */
+    /* ---- Atmospheric Background — subtle warm glow ---- */
 
     .atmosphere {
       position: fixed;
@@ -77,44 +98,19 @@
     .glow {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(100px);
     }
 
-    .glow--purple {
-      width: 55%;
+    .glow--warm {
+      width: 60%;
       height: 50%;
-      top: -8%;
-      left: -15%;
+      top: -15%;
+      left: 20%;
       background: radial-gradient(
-        ellipse at 35% 40%,
-        rgba(155, 127, 203, 0.22) 0%,
-        rgba(155, 127, 203, 0.08) 45%,
+        ellipse at 50% 40%,
+        rgba(200, 165, 92, 0.10) 0%,
+        rgba(200, 165, 92, 0.04) 40%,
         transparent 70%
-      );
-    }
-
-    .glow--orange {
-      width: 50%;
-      height: 55%;
-      bottom: -10%;
-      right: -12%;
-      background: radial-gradient(
-        ellipse at 60% 55%,
-        rgba(232, 131, 58, 0.18) 0%,
-        rgba(232, 131, 58, 0.06) 45%,
-        transparent 70%
-      );
-    }
-
-    .glow--gold {
-      width: 40%;
-      height: 40%;
-      top: 35%;
-      right: -8%;
-      background: radial-gradient(
-        ellipse at 45% 50%,
-        rgba(197, 148, 58, 0.12) 0%,
-        transparent 65%
       );
     }
 
@@ -124,7 +120,7 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.04;
+      opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 200px 200px;
       mix-blend-mode: overlay;
@@ -150,61 +146,71 @@
       top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--gold);
-      color: var(--dark);
+      background: var(--color-gold);
+      color: var(--color-text-inverse);
       padding: 8px 16px;
-      border-radius: 8px;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
       font-size: 14px;
       font-weight: 600;
       text-decoration: none;
       z-index: 100;
-      transition: top 0.2s ease;
+      transition: top var(--duration-fast) var(--ease-out);
     }
 
     .skip-link:focus {
-      top: 12px;
+      top: 0;
     }
 
     /* ---- Profile Section ---- */
 
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      border: 2px solid rgba(197, 148, 58, 0.35);
-      box-shadow:
-        0 4px 24px rgba(0, 0, 0, 0.4),
-        0 0 0 4px rgba(197, 148, 58, 0.08);
-      object-fit: cover;
+    .logo-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .brand-name {
-      font-family: 'Roca One', 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 26px;
-      color: #fff;
-      margin-top: 16px;
-      letter-spacing: 0.5px;
-      text-align: center;
+    .logo-glow {
+      position: absolute;
+      width: 200px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(176, 106, 179, 0.30) 0%,
+        rgba(232, 116, 97, 0.15) 40%,
+        transparent 70%
+      );
+      filter: blur(16px);
+      pointer-events: none;
+    }
+
+    .logo-img {
+      position: relative;
+      z-index: 1;
+      height: 52px;
+      width: auto;
     }
 
     .tagline {
-      font-size: 13px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
       font-weight: 400;
-      color: var(--cream);
-      opacity: 0.75;
-      margin-top: 6px;
+      color: var(--color-text-secondary);
+      margin-top: 16px;
       text-align: center;
+      letter-spacing: -0.01em;
     }
 
     .trust-line {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
+      font-size: 0.75rem;
       font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 1.8px;
+      color: var(--color-gold);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-top: 10px;
     }
@@ -212,41 +218,38 @@
     .trust-line svg {
       width: 13px;
       height: 13px;
-      fill: var(--gold);
+      fill: var(--color-gold);
       flex-shrink: 0;
     }
 
     /* ---- Featured Hero Card ---- */
-    /* SEASONAL: Update the featured section content for seasonal promotions */
 
     .featured {
       width: 100%;
       margin-top: 28px;
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      background: var(--card-bg);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      border: 1px solid rgba(197, 148, 58, 0.20);
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color var(--duration-normal) var(--ease-out),
+                  transform var(--duration-normal) var(--ease-out),
+                  box-shadow var(--duration-normal) var(--ease-out);
     }
 
     .featured:hover {
+      border-color: var(--color-border-hover);
       transform: translateY(-2px);
-      box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-lg);
     }
 
     .featured:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
     }
 
     .featured__image {
@@ -254,7 +257,6 @@
       height: 160px;
       object-fit: cover;
       display: block;
-      opacity: 0.85;
     }
 
     .featured__body {
@@ -262,38 +264,51 @@
     }
 
     .featured__label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--color-gold);
       margin-bottom: 6px;
     }
 
     .featured__title {
-      font-family: 'Roca One', 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 20px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: 22px;
       color: #fff;
       line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .featured__title em {
+      font-style: italic;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .featured__cta {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 12px;
+      margin-top: 14px;
+      font-family: 'Inter', system-ui, sans-serif;
       font-size: 13px;
-      font-weight: 600;
-      color: var(--orange);
-      letter-spacing: 0.5px;
+      font-weight: 500;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.02em;
     }
 
     .featured__cta svg {
       width: 14px;
       height: 14px;
-      fill: var(--orange);
-      transition: transform 0.2s ease;
+      fill: #E87461;
+      transition: transform var(--duration-normal) var(--ease-out);
     }
 
     .featured:hover .featured__cta svg {
@@ -313,134 +328,115 @@
     .link-btn {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       width: 100%;
-      padding: 15px 20px;
-      border-radius: 12px;
+      padding: 15px 24px;
+      border-radius: var(--radius-md);
       text-decoration: none;
       font-size: 15px;
       font-weight: 600;
       text-align: center;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .sparkle {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      opacity: 0.5;
-    }
-
-    .link-btn--primary .sparkle {
-      opacity: 0.7;
-    }
-
-    .link-btn:hover .sparkle {
-      opacity: 0.9;
+      letter-spacing: 0.02em;
+      transition: transform var(--duration-fast) var(--ease-out),
+                  background var(--duration-normal) var(--ease-out),
+                  border-color var(--duration-normal) var(--ease-out),
+                  box-shadow var(--duration-normal) var(--ease-out);
     }
 
     .link-btn:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
     }
 
-    /* Primary CTA */
+    /* Primary CTA — website gradient */
     .link-btn--primary {
-      justify-content: center;
-      background: linear-gradient(135deg, #9B6FCB, #C97AB5, #E8833A);
-      background-size: 200% 200%;
-      animation: gradient-shift 6s ease infinite;
+      position: relative;
+      z-index: 1;
+      background: var(--gradient-accent);
       color: #fff;
       font-size: 16px;
       font-weight: 700;
-      padding: 17px 20px;
-      box-shadow: 0 4px 20px rgba(155, 111, 203, 0.3);
-      letter-spacing: 0.3px;
+      padding: 17px 24px;
+      min-height: 52px;
+      border: none;
     }
 
-    @keyframes gradient-shift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .link-btn--primary:hover {
-      box-shadow: 0 6px 28px rgba(155, 111, 203, 0.4);
-      transform: scale(1.02);
-    }
-
-    /* Shimmer animation on primary CTA */
+    /* Glow behind on hover — matches website btn-gradient */
     .link-btn--primary::after {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 12px;
-      background: linear-gradient(
-        105deg,
-        transparent 40%,
-        rgba(255, 255, 255, 0.12) 45%,
-        rgba(255, 255, 255, 0.18) 50%,
-        rgba(255, 255, 255, 0.12) 55%,
-        transparent 60%
-      );
-      background-size: 250% 100%;
-      animation: shimmer 4s ease-in-out infinite;
-      pointer-events: none;
+      border-radius: inherit;
+      background: var(--gradient-accent);
+      opacity: 0;
+      z-index: -1;
+      filter: blur(16px);
+      transition: opacity var(--duration-normal) var(--ease-out);
     }
 
-    @keyframes shimmer {
-      0%, 100% { background-position: 200% 0; }
-      50% { background-position: -50% 0; }
+    .link-btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
 
-    /* Secondary links */
+    .link-btn--primary:hover::after {
+      opacity: 0.5;
+    }
+
+    .link-btn--primary:active {
+      transform: translateY(0);
+    }
+
+    /* Secondary links — website ghost style */
     .link-btn--secondary {
-      background: var(--btn-bg);
-      color: var(--cream);
-      border: 1px solid var(--btn-border);
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-hover);
+      font-weight: 500;
     }
 
     .link-btn--secondary:hover {
-      background: var(--btn-hover);
-      transform: scale(1.02);
-      border-color: rgba(255, 255, 255, 0.32);
+      border-color: var(--color-gold-dim);
+      background: var(--color-gold-subtle);
+      transform: translateY(-1px);
     }
 
-    /* Reviews link (slightly different treatment) */
+    .link-btn--secondary:active {
+      transform: scale(0.98);
+    }
+
+    /* Reviews link */
     .link-btn--reviews {
-      justify-content: center;
       gap: 8px;
       background: transparent;
-      color: var(--cream);
-      opacity: 0.8;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-hover);
       font-size: 15px;
+      font-weight: 500;
     }
 
     .link-btn--reviews:hover {
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.32);
+      border-color: var(--color-gold-dim);
+      background: var(--color-gold-subtle);
     }
 
     .link-btn--reviews svg {
       width: 15px;
       height: 15px;
-      fill: var(--gold);
-      margin-right: 8px;
+      fill: var(--color-gold);
       flex-shrink: 0;
     }
 
-    /* ---- Accent Divider ---- */
+    /* ---- Divider ---- */
 
     .divider {
-      width: 140px;
-      height: 2px;
-      border-radius: 1px;
-      background: linear-gradient(90deg, var(--purple), var(--orange));
+      width: 100%;
+      max-width: 460px;
+      height: 1px;
+      background: var(--color-border);
       margin: 24px auto;
-      opacity: 0.6;
+      border: none;
     }
 
     /* ---- Social Icons ---- */
@@ -460,21 +456,19 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      transition: all 0.2s ease;
-      color: var(--cream);
-      opacity: 0.5;
+      transition: color var(--duration-normal) var(--ease-out);
+      color: var(--color-text-tertiary);
+      text-decoration: none;
     }
 
     .social-icon:hover {
-      opacity: 1;
-      color: var(--gold);
-      background: rgba(197, 148, 58, 0.08);
+      color: var(--color-gold);
     }
 
     .social-icon:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
-      opacity: 1;
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+      color: var(--color-gold);
     }
 
     .social-icon svg {
@@ -490,20 +484,44 @@
       flex-direction: column;
       align-items: center;
       margin-top: 32px;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .footer__logo-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer__logo-glow {
+      position: absolute;
+      width: 320px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(176, 106, 179, 0.35) 0%,
+        rgba(232, 116, 97, 0.18) 35%,
+        rgba(245, 166, 35, 0.08) 55%,
+        transparent 75%
+      );
+      filter: blur(30px);
+      pointer-events: none;
     }
 
     .footer__logo {
-      width: 48px;
-      height: 48px;
-      opacity: 1;
+      position: relative;
+      z-index: 1;
+      height: 24px;
+      width: auto;
+      opacity: 0.2;
     }
 
     .footer__text {
       font-size: 11px;
-      color: var(--cream);
-      opacity: 0.3;
-      letter-spacing: 1px;
+      color: var(--color-text-tertiary);
+      letter-spacing: 0.05em;
     }
 
     /* ---- Responsive ---- */
@@ -514,8 +532,8 @@
         padding-bottom: 56px;
       }
 
-      .brand-name {
-        font-size: 30px;
+      .logo-img {
+        height: 58px;
       }
 
       .featured__image {
@@ -527,6 +545,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
@@ -536,11 +555,9 @@
 
   <a href="#main" class="skip-link">Skip to links</a>
 
-  <!-- Atmospheric background -->
+  <!-- Atmospheric background — single warm glow -->
   <div class="atmosphere" aria-hidden="true">
-    <div class="glow glow--purple"></div>
-    <div class="glow glow--orange"></div>
-    <div class="glow glow--gold"></div>
+    <div class="glow glow--warm"></div>
   </div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -549,15 +566,17 @@
     <!-- Profile -->
     <header>
       <div style="display:flex;flex-direction:column;align-items:center;">
-        <img
-          src="assets/avatar.png"
-          alt="Illumina Backdrops logo"
-          class="avatar"
-          width="96"
-          height="96"
-        >
-        <h1 class="brand-name">Illumina Backdrops</h1>
-        <p class="tagline">Premium Digital Photography Backdrops</p>
+        <div class="logo-wrapper">
+          <div class="logo-glow" aria-hidden="true"></div>
+          <img
+            src="assets/illumina-text-logo.svg"
+            alt="Illumina Backdrops"
+            class="logo-img"
+            width="140"
+            height="40"
+          >
+        </div>
+        <p class="tagline">Premium Digital Photo Backgrounds</p>
         <p class="trust-line">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3L22 9.2l-5 5.1L18.2 22 12 18.5 5.8 22 7 14.3 2 9.2l7.1-.9z"/></svg>
           4.8 Stars&nbsp;&nbsp;|&nbsp;&nbsp;2,000+ Happy Customers
@@ -569,7 +588,7 @@
 
       <!-- FEATURED-POST:START -->
       <a
-        href="https://illuminabackdrops.etsy.com/?utm_source=linkinbio&utm_medium=social&utm_campaign=featured_spring_sports"
+        href="https://www.etsy.com/shop/illuminabackdrops/?etsrc=sdt&search_query=sports&utm_source=linkinbio&utm_medium=social&utm_campaign=featured_spring_sports"
         class="featured"
         target="_blank"
         rel="noopener noreferrer"
@@ -585,7 +604,7 @@
         >
         <div class="featured__body">
           <p class="featured__label">New Season</p>
-          <p class="featured__title">Spring Sports Collection</p>
+          <p class="featured__title">Spring <em>Sports Collection</em></p>
           <p class="featured__cta">
             Shop Now
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -613,9 +632,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Sports Backdrops
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -624,9 +641,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Maternity Backdrops
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -635,9 +650,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Floral Backdrops
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
         <a
@@ -646,9 +659,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
           Zoom Backgrounds
-          <svg class="sparkle" viewBox="0 0 2250 2250" aria-hidden="true"><path fill="currentColor" d="M2249 1124C1406 1280 1280 1406 1125 2249 970 1406 844 1280 1 1124 844 969 970 843 1125 0 1280 843 1406 969 2249 1124z"/></svg>
         </a>
 
       </nav>
@@ -696,7 +707,11 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <img src="assets/logo.png" alt="" class="footer__logo" width="48" height="48" aria-hidden="true">
+      <div class="footer__logo-wrapper">
+        <div class="footer__logo-glow" aria-hidden="true"></div>
+        <img src="assets/illumina-text-logo.svg" alt="" class="footer__logo" width="120" height="34" aria-hidden="true">
+      </div>
+      <p class="footer__text">&copy; 2026 Illumina Backdrops</p>
     </footer>
 
   </div>
